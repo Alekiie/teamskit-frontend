@@ -1,14 +1,15 @@
 import React, { useState } from "react";
-import api from "../api/axios";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+
 const Login = () => {
-  const { login } = useAuth();
+  const { login } = useAuth(); 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+
   const handleLogin = async () => {
     if (loading) return;
     setError("");
