@@ -5,6 +5,7 @@ import MainApp from "./MainApp";
 import { useAuth } from "./context/AuthContext";
 import Tasks from "./pages/Tasks";
 import Users from "./pages/Users";
+import Profile from "./pages/Profile";
 
 const App = () => {
   const { user } = useAuth();
@@ -28,6 +29,10 @@ const App = () => {
         <Route
           path="/users"
           element={user ? <Users /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/profile"
+          element={user ? <Profile /> : <Navigate to="/login" />}
         />
       </Routes>
     </BrowserRouter>

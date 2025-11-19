@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import api from "../api/axios";
+import { useAuth } from "../context/AuthContext";
 
 const Users = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
+  const { user: currentUser } = useAuth(); // Get current user from auth context
 
   const emptyForm = {
     id: null,
@@ -16,6 +18,10 @@ const Users = () => {
   const [form, setForm] = useState(emptyForm);
   const [isEditing, setIsEditing] = useState(false);
   const [showForm, setShowForm] = useState(false);
+
+  // Check if current user is Admin (only Admin can manage users)
+  const isAdmin = currentUser?.role === "Admin";
+  const isManager = currentUser?.role === "Manager";
 
   /** Fetch all users **/
   const fetchUsers = async () => {
@@ -90,26 +96,34 @@ const Users = () => {
     <div className="p-6 space-y-6">
       <h1 className="text-3xl font-bold text-slate-800">Users</h1>
 
-      <button
-        className="px-4 py-2 bg-[#8c6f78] text-white rounded-lg hover:bg-[#7a6068]"
-        onClick={() => {
-          setForm(emptyForm);
-          setIsEditing(false);
-          setShowForm(true);
-        }}
-      >
-        Add User
-      </button>
+      {isAdmin && (
+        <button
+          className="px-4 py-2 bg-[#8c6f78] text-white rounded-lg hover:bg-[#7a6068]"
+          onClick={() => {
+            setForm(emptyForm);
+            setIsEditing(false);
+            setShowForm(true);
+          }}
+        >
+          Add User
+        </button>
+      )}
 
-      {/* FORM */}
-      {showForm && (
+      {isManager && (
+        <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+          <p className="text-red-800 text-sm">
+            <strong>Manager View:</strong> You can view users to assign tasks, but user management is restricted to Administrators.
+          </p>
+        </div>
+      )}
+
+      {showForm && isAdmin && (
         <div className="bg-white rounded-2xl shadow p-6 mt-4">
           <h2 className="text-xl font-semibold text-slate-800 mb-4">
             {isEditing ? "Edit User" : "Add User"}
           </h2>
 
           <form className="space-y-4" onSubmit={handleSubmit}>
-            {/* Username */}
             <div>
               <label className="text-sm text-slate-600">Username</label>
               <input
@@ -121,7 +135,6 @@ const Users = () => {
               />
             </div>
 
-            {/* Email */}
             <div>
               <label className="text-sm text-slate-600">Email</label>
               <input
@@ -133,7 +146,6 @@ const Users = () => {
               />
             </div>
 
-            {/* Role */}
             <div>
               <label className="text-sm text-slate-600">Role</label>
               <select
@@ -147,7 +159,6 @@ const Users = () => {
               </select>
             </div>
 
-            {/* Active status */}
             <div className="flex items-center space-x-2">
               <input
                 type="checkbox"
@@ -159,7 +170,6 @@ const Users = () => {
               <label className="text-sm text-slate-600">Active</label>
             </div>
 
-            {/* Buttons */}
             <div className="flex space-x-2">
               <button
                 type="submit"
@@ -184,7 +194,6 @@ const Users = () => {
         </div>
       )}
 
-      {/* USERS TABLE */}
       <table className="w-full bg-white rounded-2xl shadow mt-4">
         <thead className="bg-[#faf8f7] text-slate-700">
           <tr>
@@ -193,20 +202,20 @@ const Users = () => {
             <th className="p-3 text-left">Email</th>
             <th className="p-3 text-left">Role</th>
             <th className="p-3 text-left">Active</th>
-            <th className="p-3 text-left">Actions</th>
+            {isAdmin && <th className="p-3 text-left">Actions</th>}
           </tr>
         </thead>
 
         <tbody>
           {loading ? (
             <tr>
-              <td className="p-3 text-center" colSpan={6}>
+              <td className="p-3 text-center" colSpan={isAdmin ? 6 : 5}>
                 Loading...
               </td>
             </tr>
           ) : users.length === 0 ? (
             <tr>
-              <td className="p-3 text-center text-slate-500" colSpan={6}>
+              <td className="p-3 text-center text-slate-500" colSpan={isAdmin ? 6 : 5}>
                 No users found.
               </td>
             </tr>
@@ -219,21 +228,23 @@ const Users = () => {
                 <td className="p-3 capitalize">{u.role}</td>
                 <td className="p-3">{u.is_active ? "Yes" : "No"}</td>
 
-                <td className="p-3 space-x-2">
-                  <button
-                    onClick={() => handleEdit(u)}
-                    className="px-3 py-1 bg-[#8c6f78] text-white rounded-lg hover:bg-[#7a6068]"
-                  >
-                    Edit
-                  </button>
+                {isAdmin && (
+                  <td className="p-3 space-x-2">
+                    <button
+                      onClick={() => handleEdit(u)}
+                      className="px-3 py-1 bg-[#8c6f78] text-white rounded-lg hover:bg-[#7a6068]"
+                    >
+                      Edit
+                    </button>
 
-                  <button
-                    onClick={() => handleDelete(u.id)}
-                    className="px-3 py-1 bg-[#d6cec9] rounded-lg hover:bg-[#c0b5b9]"
-                  >
-                    Delete
-                  </button>
-                </td>
+                    <button
+                      onClick={() => handleDelete(u.id)}
+                      className="px-3 py-1 bg-[#d6cec9] rounded-lg hover:bg-[#c0b5b9]"
+                    >
+                      Delete
+                    </button>
+                  </td>
+                )}
               </tr>
             ))
           )}

@@ -55,7 +55,7 @@ const Login = () => {
           onKeyDown={submitOnEnter}
           onChange={(e) => setPassword(e.target.value)}
           className="w-full p-3 rounded-lg border border-[#d6cec9] focus:outline-none focus:ring-2 focus:ring-[#bba4ad] bg-[#faf8f7]"
-          placeholder="••••••••"
+          placeholder="*****"
         />
 
         <button
