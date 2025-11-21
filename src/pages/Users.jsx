@@ -234,14 +234,14 @@ const Users = () => {
                   <td className="p-3 space-x-2">
                     <button
                       onClick={() => handleEdit(u)}
-                      className="px-3 py-1 bg-[#8c6f78] text-white rounded-lg hover:bg-[#7a6068]"
+                      className="px-3 py-1 bg-[#8c6f78] text-white rounded-lg hover:bg-[#7a6068] cursor-pointer"
                     >
                       Edit
                     </button>
 
                     <button
                       onClick={() => handleDelete(u.id)}
-                      className="px-3 py-1 bg-[#d6cec9] rounded-lg hover:bg-[#c0b5b9]"
+                      className="px-3 py-1 bg-[#d6cec9] rounded-lg hover:bg-[#c0b5b9] cursor-pointer"
                     >
                       Delete
                     </button>
