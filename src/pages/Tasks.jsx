@@ -34,7 +34,7 @@ const Tasks = () => {
 
   const fetchTasks = async () => {
     try {
-      const res = await api.get("/tasks/");
+      const res = await api.get("tasks/");
       setTasks(res.data);
     } catch (err) {
       console.error(err);
@@ -43,7 +43,7 @@ const Tasks = () => {
 
   const fetchUsers = async () => {
     try {
-      const res = await api.get("/users/");
+      const res = await api.get("users/");
       setUsers(res.data);
     } catch (err) {
       console.error(err);
@@ -88,9 +88,10 @@ const Tasks = () => {
       };
 
       if (isEditing) {
-        await api.put(`/tasks/${form.id}/`, payload);
+        await api.put(`tasks/${form.id}/`, payload);
       } else {
-        await api.post("/tasks/", payload);
+        await api.post("tasks/", payload);
+        console.log(payload)
       }
 
       setShowForm(false);
@@ -109,7 +110,7 @@ const Tasks = () => {
     }
 
     try {
-      await api.post(`/tasks/${taskId}/assign_task/`, {
+      await api.post(`tasks/${taskId}/assign_task/`, {
         assignee_id: parseInt(newAssigneeId, 10),
       });
 
@@ -155,7 +156,7 @@ const Tasks = () => {
   const handleDelete = async (id) => {
     if (!window.confirm("Delete this task?")) return;
     try {
-      await api.delete(`/tasks/${id}/`);
+      await api.delete(`tasks/${id}/`);
       fetchTasks();
     } catch (err) {
       console.error(err);
@@ -179,7 +180,7 @@ const Tasks = () => {
         status: newStatus,
       };
 
-      await api.put(`/tasks/${taskId}/`, payload);
+      await api.put(`tasks/${taskId}/`, payload);
       fetchTasks();
     } catch (err) {
       console.error("Error updating task status:", err);
@@ -210,8 +211,8 @@ const Tasks = () => {
       </div>
 
       {isMember && (
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-          <p className="text-blue-800 text-sm">
+        <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+          <p className="text-slate-800 text-sm">
             <strong>Member View:</strong> You can only view and update tasks
             assigned to you.
           </p>

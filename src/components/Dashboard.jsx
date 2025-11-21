@@ -45,7 +45,7 @@ export default function DashboardPage() {
   useEffect(() => {
     const fetchActivity = async () => {
       try {
-        const res = await api.get("/tasks/recent/");
+        const res = await api.get("tasks/recent/");
         setActivity(res.data);
       } catch (err) {
         console.log("Error fetching activity:", err);

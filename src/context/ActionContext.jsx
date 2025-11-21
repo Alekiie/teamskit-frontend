@@ -4,11 +4,11 @@ const ActionContext = createContext();
 export const ActionProvider = ({ children }) => {
 
   const getTasks = async () => {
-    const res = await api.get("/tasks/");
+    const res = await api.get("tasks/");
     return res.data;
   };
   const getUsers = async () => {
-    const res = await api.get("/users/");
+    const res = await api.get("users/");
     return res.data;
   };
   return (

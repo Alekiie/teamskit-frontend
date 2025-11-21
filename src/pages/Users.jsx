@@ -5,7 +5,7 @@ import { useAuth } from "../context/AuthContext";
 const Users = () => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
-  const { user: currentUser } = useAuth(); // Get current user from auth context
+  const { user: currentUser } = useAuth();
 
   const emptyForm = {
     id: null,
@@ -39,7 +39,7 @@ const Users = () => {
     fetchUsers();
   }, []);
 
-  /** Create / Update User **/
+  // Create / Update User
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -52,9 +52,9 @@ const Users = () => {
       };
 
       if (isEditing) {
-        await api.put(`/users/${form.id}/`, payload);
+        await api.put(`users/${form.id}/`, payload);
       } else {
-        await api.post(`/users/`, payload);
+        await api.post(`users/`, payload);
       }
 
       setForm(emptyForm);
@@ -66,7 +66,6 @@ const Users = () => {
     }
   };
 
-  /** Edit user **/
   const handleEdit = (user) => {
     setForm({
       id: user.id,
@@ -80,12 +79,11 @@ const Users = () => {
     setShowForm(true);
   };
 
-  /** Delete user **/
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this user?")) return;
 
     try {
-      await api.delete(`/users/${id}/`);
+      await api.delete(`users/${id}/`);
       fetchUsers();
     } catch (err) {
       console.error(err);
@@ -112,7 +110,8 @@ const Users = () => {
       {isManager && (
         <div className="bg-red-50 border border-red-200 rounded-lg p-4">
           <p className="text-red-800 text-sm">
-            <strong>Manager View:</strong> You can view users to assign tasks, but user management is restricted to Administrators.
+            <strong>Manager View:</strong> You can view users to assign tasks,
+            but user management is restricted to Administrators.
           </p>
         </div>
       )}
@@ -215,7 +214,10 @@ const Users = () => {
             </tr>
           ) : users.length === 0 ? (
             <tr>
-              <td className="p-3 text-center text-slate-500" colSpan={isAdmin ? 6 : 5}>
+              <td
+                className="p-3 text-center text-slate-500"
+                colSpan={isAdmin ? 6 : 5}
+              >
                 No users found.
               </td>
             </tr>

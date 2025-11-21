@@ -10,7 +10,7 @@ export const AuthProvider = ({ children }) => {
   
   const login = async (username, password) => {
     try {
-      const res = await api.post("/auth/login/", { username, password });
+      const res = await api.post("auth/login/", { username, password });
       
       if (!res.data) throw new Error("Invalid response from server");
 
