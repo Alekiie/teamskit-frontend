@@ -96,7 +96,7 @@ const Users = () => {
 
       {isAdmin && (
         <button
-          className="px-4 py-2 bg-[#8c6f78] text-white rounded-lg hover:bg-[#7a6068]"
+          className="px-4 py-2 bg-[#8c6f78] text-white rounded-lg hover:bg-[#7a6068] cursor-pointer"
           onClick={() => {
             setForm(emptyForm);
             setIsEditing(false);
