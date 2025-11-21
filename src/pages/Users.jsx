@@ -118,7 +118,7 @@ const Users = () => {
 
       {showForm && isAdmin && (
         <div className="bg-white rounded-2xl shadow p-6 mt-4">
-          <h2 className="text-xl font-semibold text-slate-800 mb-4">
+          <h2 className="text-xl font-semibold text-slate-800 mb-4 cursor-pointer">
             {isEditing ? "Edit User" : "Add User"}
           </h2>
 
