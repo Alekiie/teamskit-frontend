@@ -43,8 +43,10 @@ const Tasks = () => {
 
   const fetchUsers = async () => {
     try {
-      const res = await api.get("users/");
-      setUsers(res.data);
+      const res = await api.get("users/")    
+      const members=res.data.filter((u)=>u.role==="Member")
+      console.log(members)
+      setUsers(members);
     } catch (err) {
       console.error(err);
     }
@@ -382,7 +384,7 @@ const Tasks = () => {
                 <option value="">Select user</option>
                 {users.map((u) => (
                   <option key={u.id} value={u.id}>
-                    {u.username} ({u.role})
+                    {u.username} ({u.role })
                   </option>
                 ))}
               </select>
