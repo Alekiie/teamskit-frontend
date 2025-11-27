@@ -6,12 +6,14 @@ import { useAuth } from "./context/AuthContext";
 import Tasks from "./pages/Tasks";
 import Users from "./pages/Users";
 import Profile from "./pages/Profile";
+import NavBar from "./components/NavBar";
 
 const App = () => {
   const { user } = useAuth();
 
   return (
     <BrowserRouter>
+      <NavBar />
       <Routes>
         <Route
           path="/login"

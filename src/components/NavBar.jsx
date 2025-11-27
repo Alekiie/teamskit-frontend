@@ -30,7 +30,7 @@ const NavBar = () => {
           {/* Desktop Menu */}
           <div className="hidden md:flex space-x-8">
             <a
-              className="text-gray-700 hover:text-green-400 font-medium cursor-pointer"
+              className="text-gray-700 hover:text-slate-400 font-medium cursor-pointer"
               onClick={() => navigate("/")}
             >
               Dashboard
@@ -39,7 +39,7 @@ const NavBar = () => {
             {/* Admin only */}
             {role === "Admin" && (
               <a
-                className="text-gray-700 hover:text-green-400 font-medium cursor-pointer"
+                className="text-gray-700 hover:text-slate-400 font-medium cursor-pointer"
                 onClick={() => navigate("/users")}
               >
                 Users
@@ -49,7 +49,7 @@ const NavBar = () => {
             {/* Admin + Manager */}
             {(role === "Admin" || role === "Manager") && (
               <a
-                className="text-gray-700 hover:text-green-400 font-medium cursor-pointer"
+                className="text-gray-700 hover:text-slate-400 font-medium cursor-pointer"
                 onClick={() => navigate("/tasks")}
               >
                 Tasks
@@ -64,14 +64,14 @@ const NavBar = () => {
                 className="flex items-center space-x-2 cursor-pointer group"
                 onClick={handleProfileClick}
               >
-                <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-white text-sm font-medium">
+                <div className="w-8 h-8 bg-slate-500 rounded-full flex items-center justify-center text-white text-sm font-medium">
                   <PersonStanding />
                 </div>
                 <div className="text-left">
-                  <p className="text-gray-700 text-sm font-medium group-hover:text-green-600">
+                  <p className="text-gray-700 text-sm font-medium group-hover:text-slate-600">
                     {user.username}
                   </p>
-                  <p className="text-gray-500 text-xs group-hover:text-green-500">
+                  <p className="text-gray-500 text-xs group-hover:text-slate-500">
                     {role}
                   </p>
                 </div>
@@ -79,7 +79,7 @@ const NavBar = () => {
             )}
             <button
               onClick={handleLogout}
-              className="text-white bg-slate-600 hover:bg-green-700 px-4 py-2 rounded-md font-medium"
+              className="text-white bg-slate-600 hover:bg-slate-700 px-4 py-2 rounded-md font-medium"
             >
               Logout
             </button>
@@ -102,7 +102,7 @@ const NavBar = () => {
               className="flex items-center space-x-3 px-3 py-2 border-b cursor-pointer hover:bg-gray-50 rounded-md"
               onClick={handleProfileClick}
             >
-              <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-white text-sm font-medium">
+              <div className="w-8 h-8 bg-slate-500 rounded-full flex items-center justify-center text-white text-sm font-medium">
                 <PersonStanding />
               </div>
               <div>
@@ -148,7 +148,7 @@ const NavBar = () => {
 
           <button
             onClick={handleLogout}
-            className="w-full text-left px-3 py-2 text-white bg-slate-600 rounded-md hover:bg-green-700 cursor-pointer"
+            className="w-full text-left px-3 py-2 text-white bg-slate-600 rounded-md hover:bg-slate-700 cursor-pointer"
           >
             Logout
           </button>
